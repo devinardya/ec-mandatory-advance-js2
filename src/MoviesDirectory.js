@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet";
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
-import {cancelTok} from './Cancel'
+
 
 
 class MovieDirectory extends React.Component{
@@ -21,12 +21,13 @@ class MovieDirectory extends React.Component{
     
     componentDidMount() {
 
-        axios.get("http://3.120.96.16:3001/movies")
-              .then(res => {
-                console.log(res)
-               const movies = res.data;
-               this.setState({ items: movies });
-           })
+        axios.get("http://3.120.96.16:3001/movies/")
+        .then(res => {
+          console.log(res)
+         const movies = res.data;
+         //console.log(movies)
+          this.setState({items: movies})
+        })
     }
 
     componentDidUpdate(){
@@ -36,12 +37,25 @@ class MovieDirectory extends React.Component{
 
 
     onFetch(){
-        axios.get("http://3.120.96.16:3001/movies")
-              .then(res => {
-                console.log(res)
-               const movies = res.data;
-               this.setState({ items: movies });
-           })
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+        axios.get("http://3.120.96.16:3001/movies/", {cancelToken: source.token})
+        .then(res => {
+          console.log(res)
+         const movies = res.data;
+         //console.log(movies)
+          this.setState({items: movies})
+        }).catch(function (thrown) {
+          if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+          } else {
+            // handle error
+          }
+        });
+
+        
+        // cancel the request (the message parameter is optional)
+        source.cancel('Operation canceled by the user.');
     } 
 
     onDelete(id){

@@ -28,28 +28,16 @@ class EditMovie extends React.Component{
 
       componentDidMount() {
         let idPage = this.props.match.params.id;
-        const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
+      
 
-        axios.get("http://3.120.96.16:3001/movies/"+ idPage, {
-          cancelToken: source.token
-        }).then(res => {
+        axios.get("http://3.120.96.16:3001/movies/"+ idPage)
+        .then(res => {
           console.log(res)
          const movies = res.data;
          //console.log(movies)
           this.setState({items: movies})
-        }).catch(function (thrown) {
-          if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-          } else {
-            // handle error
-          }
-        });
+        })
 
-        
-        // cancel the request (the message parameter is optional)
-        source.cancel('Operation canceled by the user.');
-     
     }
 
     onChangeTitle(e){
