@@ -5,19 +5,18 @@ import Home from './MoviesDirectory';
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
 import IndividualMovie from './IndividualMovie';
-import Navigation from './Navigation';
 
 class App extends React.Component {
   render(){
     return (
       <div id="App">
           <Router>
-              <Navigation/>
               <Route exact path="/" component={Home} />
               <Route path="/addmovie" component={AddMovie} />
               <Route path="/editmovie/:id" component={EditMovie} />
               <Route path="/movies/:id" component={IndividualMovie} />
            </Router>
+        
       </div>
     );
   }

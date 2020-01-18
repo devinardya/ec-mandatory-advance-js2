@@ -2,117 +2,164 @@ import React from 'react';
 import {Helmet} from "react-helmet";
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import {Redirect} from 'react-router-dom';
+import Navigation from './Navigation';
+import { MdRemoveCircle } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
+import BeautyStars from 'beauty-stars';
 
 
+let url = "http://3.120.96.16:3001/movies/";
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 
 class MovieDirectory extends React.Component{
-
-    constructor(props) {
+      constructor(props) {
         super(props);
         this.state = {
           items: [],
           redirect: false,
         };
-
+        this.interval = null;
+        this.messageList = React.createRef();
         this.onDelete = this.onDelete.bind(this);
         this.onFetch = this.onFetch.bind(this);
+        this.onGetData = this.onGetData.bind(this);
+        this.scrollToBottom = this.scrollToBottom.bind(this);
       }
-    
-    componentDidMount() {
 
-        axios.get("http://3.120.96.16:3001/movies/")
-        .then(res => {
-          console.log(res)
-         const movies = res.data;
-         //console.log(movies)
-          this.setState({items: movies})
+      componentDidMount() {
+        this.onGetData();
+      }
+
+      onGetData(){
+          axios.get(url)
+          .then(res => {
+            console.log(res)
+          const movies = res.data;
+          console.log(movies)
+            this.setState({items: movies})
+          })
+      }
+
+      componentDidUpdate(){
+         this.interval = setInterval(() => {
+            this.onFetch();
+          }, 2000);
+         
+          this.scrollToBottom();   
+      }
+
+
+      onFetch(){
+          
+          axios.get(url)
+          .then(res => {
+            console.log(res)
+            const movies = res.data;
+            //console.log("res dataa", movies[movies.length-1].id);
+            let savedListMovie = this.state.items;
+            //console.log('this items', this.state.items[this.state.items.length-1]);
+
+            if (movies[movies.length-1].id !== savedListMovie[savedListMovie.length-1].id){
+              this.setState({items: movies});
+            } 
+          })   
+      } 
+
+      onDelete(id){
+          axios.delete(url+id)
+          .then(() => {
+            this.onGetData();
+          })
+              
+      }
+
+      scrollToBottom(){
+        const scrollHeight = this.messageList.current.scrollHeight;
+        this.messageList.current.scrollTop = scrollHeight;
+      }
+
+      componentWillUnmount(){
+        clearInterval(this.interval);
+
+        axios.get(url, {
+          cancelToken: source.token
         })
-    }
-
-    componentDidUpdate(){
-        this.onFetch();
-        
-    }
-
-
-    onFetch(){
-        const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
-        axios.get("http://3.120.96.16:3001/movies/", {cancelToken: source.token})
-        .then(res => {
-          console.log(res)
-         const movies = res.data;
-         //console.log(movies)
-          this.setState({items: movies})
-        }).catch(function (thrown) {
+        .catch(function (thrown) {
           if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
           } else {
             // handle error
           }
-        });
-
-        
-        // cancel the request (the message parameter is optional)
+        }); 
         source.cancel('Operation canceled by the user.');
-    } 
 
-    onDelete(id){
-            axios.delete("http://3.120.96.16:3001/movies/"+id)
-            this.onFetch();
-    }
+      }
 
+      render(){
 
+          let movies = this.state.items;
+          console.log(movies);
 
-    render(){
+          let localDataMovies = [];
 
-        let movies = this.state.items;
-        console.log(movies);
-        
-        if (this.state.redirect){
-            return <Redirect to="/"/>;
-        }
+          movies.map( movieData => {
+               return localDataMovies.push(movieData);
+          }) 
 
-        let renderTable = movies.map(movie => {
-            let singleUrl = "/editmovie/" + movie.id
-            return (
-                        <tr key= {movie.id}>
-                            <td>{movie.title}</td>
-                            <td>{movie.director}</td>
-                            <td>{movie.rating}</td>
-                            <td>
-                                <span><button onClick = {() => this.onDelete(movie.id)}>Delete</button></span>
-                                <span><button><Link style={{marginRight: "10px"}} to={singleUrl}>Edit</Link></button></span>
-                            </td>
-                        </tr>
-                    
-                    )
-        })
+          console.log(localDataMovies);
 
-        return <div id="movie-directory">
-                    <Helmet>
-                        <title>Home</title>
-                    </Helmet>
-                    <h1>Movie Directory</h1>
-                    <div className="movie-list">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Director</th>
-                                    <th>Rating</th>
-                                    <th>Options</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 {renderTable}
-                            </tbody>
-                        </table>
-                    </div>
-               </div>
-       
-    }
+          let renderTable = localDataMovies.map(movie => {
+              let editUrl = "/editmovie/" + movie.id;
+              let eachUrl = "/movies/" + movie.id;
+              return (
+                          <tr key= {movie.id}>
+                              <td><Link style={{marginRight: "10px"}} to={eachUrl}>{movie.title}</Link></td>
+                              <td>{movie.director}</td>
+                              <td><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></td>
+                              <td>
+                                  <span><button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdRemoveCircle className="options-icon"  size="15px" color="red" /> Delete</button></span>
+                                  <span><button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="15px" color="green" />Edit</Link></button></span>
+                              </td>
+                          </tr>
+                      
+                      )
+          })
+
+          return <div id="movie-directory">
+                      <Helmet>
+                          <title>Home - Movies Directory</title>
+                      </Helmet>
+                      <header>
+                         <Navigation/>    
+                          <h1>Movies Directory</h1>
+                          <h4>Share your favorite movies with everyone</h4>     
+                      </header>
+                      <div className="search-box">
+                        <form className="search">
+                            <input type="text" placeholder="search movie"/>
+                            <button><MdSearch size="15px" color="grey"/></button>
+                        </form>
+                      </div>
+                      <div className="movie-list" ref={this.messageList}>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Title</th>
+                                      <th>Director</th>
+                                      <th>Rating</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {renderTable}
+                              </tbody>
+                          </table>
+                      </div>
+                </div>
+     
+  }
 
 }
 

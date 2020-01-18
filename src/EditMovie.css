@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Source+Sans+Pro:400,700&display=swap');
+
+.confirmation, .warning{
+    width: 80%;
+}
+
+.confirmation h2 {
+    text-align: left;
+    color: green;
+    margin-bottom: 40px;
+    margin-top: -20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+.confirmation h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.confirmation h5{
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #414141;
+}
+
+.confirmation p {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #414141;
+}
+
+.warning p{
+    text-align: left;
+    color: red;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-top: 0px;
+    font-size: 20px;
+}

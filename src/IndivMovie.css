@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Source+Sans+Pro:400,700&display=swap');
+
+.content {
+    width: 80%;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+h3 {
+    align-self: flex-start;
+}
+
+p{
+    line-height: 25px;
+}
+
+.content span {
+    margin-left: 10px;
+}
+
+.content h2 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    color: orangered;
+}
+
+.content h3 {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #414141;
+}
+
+.content p {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #414141;
+}

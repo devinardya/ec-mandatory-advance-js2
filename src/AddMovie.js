@@ -2,6 +2,10 @@ import React from 'react';
 import {Helmet} from "react-helmet";
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
+import Navigation from './Navigation';
+import Form from './Form';
+
+let url = "http://3.120.96.16:3001/movies/";
 
 class AddMovie extends React.Component{
 
@@ -20,40 +24,44 @@ class AddMovie extends React.Component{
         this.onChangeDesc = this.onChangeDesc.bind(this);
         this.onChangeDir = this.onChangeDir.bind(this);
         this.onChangeRating = this.onChangeRating.bind(this);
-    
       }
 
-    onChangeTitle(e){
-        this.setState({title: e.target.value});
+      componentDidMount() {
+        //this.onGetData();
+      }
+
+
+    onChangeTitle(value){
+        this.setState({title: value});
     } 
 
-    onChangeDesc(e){
-        this.setState({description: e.target.value});
+    onChangeDesc(value){
+        this.setState({description: value});
     } 
 
-    onChangeDir(e){
-        this.setState({director: e.target.value});
+    onChangeDir(value){
+        this.setState({director: value});
     } 
 
-    onChangeRating(e){
-        this.setState({rating: e.target.value});
+    onChangeRating(value){
+        this.setState({rating: value});
     } 
     
-   onSubmit(e){
-       e.preventDefault();
+   onSubmit(status){
+
        let newInput = {
         title: this.state.title,
         description: this.state.description,
         director: this.state.director,
         rating: this.state.rating,
        }
-       axios.post('http://3.120.96.16:3001/movies', newInput)
+       axios.post(url, newInput)
        
       .then(function (response) {
         console.log(response); 
       })
       .then( () => {
-        this.setState({redirect: true})
+        this.setState({redirect: status})
       })
       .catch((error) =>{
         console.log(error);
@@ -72,14 +80,26 @@ class AddMovie extends React.Component{
                     <Helmet>
                         <title>Add Movie</title>
                     </Helmet>
-                    <h1>Add Movie</h1>
-                    <form onSubmit={this.onSubmit}>
+                    <header>
+                           <Navigation/>    
+                          <h1>Add Movies</h1>
+                          <h4>Share your favorite movies with everyone</h4>    
+                      </header>
+                      <Form
+                          onSubmit = {this.onSubmit} 
+                          onChangeDesc = {this.onChangeDesc} 
+                          onChangeDir = {this.onChangeDir} 
+                          onChangeRating = {this.onChangeRating} 
+                          onChangeTitle = {this.onChangeTitle}
+                         
+                      />
+                   {/*  <form onSubmit={this.onSubmit}>
                         <input className="input-box" type="text" placeholder="Title" title={this.state.value} onChange={this.onChangeTitle}/>
                         <input className="input-box" type="text" placeholder="Description" description={this.state.value} onChange={this.onChangeDesc}/>
                         <input className="input-box" type="text" placeholder="Director" director={this.state.value} onChange={this.onChangeDir}/>
                         <input className="input-box" type="text" placeholder="Rating" rating={this.state.value} onChange={this.onChangeRating}/>
                         <button>Submit</button>
-                    </form>
+                    </form> */}
                 </div>
     }
 

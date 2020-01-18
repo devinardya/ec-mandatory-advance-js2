@@ -1,38 +1,201 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Source+Sans+Pro:400,700&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#App {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: center;
+  background-color: #f5f5f5;
+}
+
+#movie-directory{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+#movie-directory h1{
+  color: rgb(10, 151, 161);
+  font-size: 90px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 80px;
+  padding-top: 20px;
+}
+
+#movie-directory h4{
+  color: orangered;
+  margin-top: 0px;
+}
+
+nav{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: rgb(102, 82, 63);
+  text-align: right;
+}
+
+a{
+  text-decoration: none;
+}
+
+header {
+  width: 80%;
+  height: 20%;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+.movie-list{
+  width: 80%;
+  height: 50%;
+  overflow-y: scroll;
+}
+
+table {
+  font-family: 'Source Sans Pro', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #f5f5f5;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+td, th {
+  text-align: left;
+  width: 210px;
+}
+
+td {
+  padding: 25px 0px;
+  border: 1px dashed #dddddd;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}
+
+tbody tr{
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+tbody tr:first-child {
+  margin-top: 50px;
+}
+
+th{
+  border-top: none;
+  padding: 10px;
+  border-left: none;
+  padding-left: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #dddddd;
+}
+
+th:nth-child(2){
+  padding-left: 110px;
+}
+
+th:nth-child(3){
+  padding-left: 80px;
+}
+
+thead tr{
+  display: block;
+  position: absolute;
+  background-color: #f5f5f5;
+  color: rgb(12, 143, 148);
+  width: 80%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 999999999999;
+}
+
+td:last-child {
+  border: none;
+  background-color: hsla(89, 43%, 51%, 0)
+}
+
+td:nth-child(3) {
+  border-right: none;
+}
+
+td:first-child  a{
+  color: rgb(10, 151, 161);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+td:first-child {
+  border-left: none;
+  width: 300px;
+  padding-left: 60px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: break-all;
+}
+
+td:nth-child(2) {
+  text-align: left;
+  width: 300px;
+  padding-left: 25px;
+}
+
+td:last-child {
+  padding-left: 30px;
+}
+
+button {
+  border: none;
+  background-color: hsla(89, 43%, 51%, 0)
+}
+
+.options-button {
+  color: red;
+}
+
+.options-button:hover {
+  cursor: pointer;
+}
+
+svg:hover, li:hover, ul:hover{
+  cursor: default;
+}
+
+li {
+  margin-left: -10px;
+}
+
+.nav-icon, .options-icon {
+  position: relative;
+  top: 3px;
+}
+
+.search-box{
+  height: 5%;
+  width: 80%;
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+.search {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search input {
+  width: 80%;
+  padding: 10px 10px;
 }

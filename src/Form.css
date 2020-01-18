@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Source+Sans+Pro:400,700&display=swap');
+
+.form-box {
+    display: flex;
+    flex-flow: column wrap;
+    width: 80%;
+}
+
+form {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.input-box {
+    padding: 10px;
+    margin: 5px 0px;
+    border: 1px dashed #dddddd;
+    width: 100%;
+    border-radius: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+}
+
+.input-box.desc {
+    height: 100px;
+    border: 1px dashed #dddddd;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+}
+
+label {
+    margin-bottom: 0px;
+    margin-top: 15px;
+    color: orangered;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.rating-choice {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.submit-button {
+    width: 200px;
+    padding: 15px;
+    background-color: rgb(255, 168, 37);
+    align-self: flex-end;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    cursor: pointer;
+}
