@@ -23,6 +23,8 @@
     margin-top: 20px;
     font-family: 'Montserrat', sans-serif;
     color: #414141;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .confirmation p {
@@ -38,4 +40,8 @@
     font-weight: 600;
     margin-top: 0px;
     font-size: 20px;
+}
+
+.confirmation h5 span {
+    margin-left: 20px;
 }

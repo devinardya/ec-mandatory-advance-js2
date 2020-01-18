@@ -142,7 +142,7 @@ class EditMovie extends React.Component{
             printData = (<div className = "confirmation">
                             <h2>Changes has been saved!</h2>
                             <h4>{this.state.title}</h4>
-                            <span><BeautyStars value={this.state.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span>
+                            <h5>Rating: <span><BeautyStars value={this.state.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span></h5>
                             <h5>Director: {this.state.director}</h5>
                             <p>{this.state.description}</p>
                          </div>

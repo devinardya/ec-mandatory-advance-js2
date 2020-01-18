@@ -70,7 +70,7 @@ td, th {
 }
 
 td {
-  padding: 25px 0px;
+  padding: 14px 0px;
   border: 1px dashed #dddddd;
   border-right: none;
   border-left: none;
@@ -94,14 +94,22 @@ th{
   padding-left: 60px;
   font-size: 20px;
   border-bottom: 1px solid #dddddd;
+
+}
+
+th:first-child {
+  width: 600px;
 }
 
 th:nth-child(2){
   padding-left: 110px;
+  width: 500px;
+ 
 }
 
 th:nth-child(3){
-  padding-left: 80px;
+  padding-left: 100px;
+  width: 500px;
 }
 
 thead tr{
@@ -132,7 +140,7 @@ td:first-child  a{
 
 td:first-child {
   border-left: none;
-  width: 300px;
+  width: 500px;
   padding-left: 60px;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -142,8 +150,9 @@ td:first-child {
 
 td:nth-child(2) {
   text-align: left;
-  width: 300px;
+  width: 500px;
   padding-left: 25px;
+  color: #414141;
 }
 
 td:last-child {
@@ -159,7 +168,7 @@ button {
   color: red;
 }
 
-.options-button:hover {
+.options-button:hover, .options-icon:hover{
   cursor: pointer;
 }
 

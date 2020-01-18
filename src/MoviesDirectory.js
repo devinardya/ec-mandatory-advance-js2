@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet";
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Navigation from './Navigation';
-import { MdRemoveCircle } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { MdSearch } from "react-icons/md";
 import BeautyStars from 'beauty-stars';
@@ -19,6 +19,7 @@ class MovieDirectory extends React.Component{
         this.state = {
           items: [],
           redirect: false,
+          inputValue: "",
         };
         this.interval = null;
         this.messageList = React.createRef();
@@ -26,6 +27,7 @@ class MovieDirectory extends React.Component{
         this.onFetch = this.onFetch.bind(this);
         this.onGetData = this.onGetData.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
+        this.onChange = this.onChange.bind(this);
       }
 
       componentDidMount() {
@@ -80,6 +82,11 @@ class MovieDirectory extends React.Component{
         this.messageList.current.scrollTop = scrollHeight;
       }
 
+      onChange(e){
+        e.preventDefault();
+        this.setState({inputValue : e.target.value})
+      }
+
       componentWillUnmount(){
         clearInterval(this.interval);
 
@@ -93,7 +100,7 @@ class MovieDirectory extends React.Component{
             // handle error
           }
         }); 
-        source.cancel('Operation canceled by the user.');
+        source.cancel('Operation canceled by the user.'); 
 
       }
 
@@ -109,22 +116,24 @@ class MovieDirectory extends React.Component{
           }) 
 
           console.log(localDataMovies);
+          let wholeData;
+          let filterData;
 
           let renderTable = localDataMovies.map(movie => {
               let editUrl = "/editmovie/" + movie.id;
               let eachUrl = "/movies/" + movie.id;
-              return (
-                          <tr key= {movie.id}>
+
+              wholeData = (<tr key= {movie.id}>
                               <td><Link style={{marginRight: "10px"}} to={eachUrl}>{movie.title}</Link></td>
                               <td>{movie.director}</td>
                               <td><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></td>
                               <td>
-                                  <span><button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdRemoveCircle className="options-icon"  size="15px" color="red" /> Delete</button></span>
-                                  <span><button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="15px" color="green" />Edit</Link></button></span>
+                                  <button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
+                                  <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="20px" color="green" /></Link></button>
                               </td>
                           </tr>
-                      
-                      )
+                          )
+              return wholeData;
           })
 
           return <div id="movie-directory">
@@ -137,7 +146,7 @@ class MovieDirectory extends React.Component{
                           <h4>Share your favorite movies with everyone</h4>     
                       </header>
                       <div className="search-box">
-                        <form className="search">
+                        <form className="search" onChange = {this.onChange} onSubmit = {this.onSubmit}>
                             <input type="text" placeholder="search movie"/>
                             <button><MdSearch size="15px" color="grey"/></button>
                         </form>

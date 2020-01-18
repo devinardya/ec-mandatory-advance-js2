@@ -9,6 +9,9 @@ class Form extends React.Component {
         this.state = {
             redirect: false,
             value: 0,
+            titleCounter: 0,
+            directorCounter: 0,
+            descCounter: 0,
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -20,14 +23,20 @@ class Form extends React.Component {
 
     onChangeTitle(e){
         this.props.onChangeTitle(e.target.value);
+        this.setState({titleCounter : e.target.value.length})
+        this.setState({titleCounter : this.props.title.length})
     } 
 
     onChangeDesc(e){
         this.props.onChangeDesc(e.target.value);
+        this.setState({descCounter : e.target.value.length})
+        this.setState({descCounter : this.props.description.length})
     } 
 
     onChangeDir(e){
         this.props.onChangeDir(e.target.value);
+        this.setState({directorCounter: e.target.value.length})
+        this.setState({directorCounter: this.props.director.length})
     } 
 
     onChangeRating(e){
@@ -53,14 +62,61 @@ class Form extends React.Component {
             ratingValue = this.state.value;
         }
 
+        let inputTitleColor;
+        console.log("title counter", this.state.titleCounter)
+        let inputDirectorColor;
+        let inputDescColor;
+
+        if (this.props.title !== undefined){
+            if (this.props.title.length >= 1 && this.props.title.length <= 40){
+                inputTitleColor = {color : "#737373"};
+            } else {
+                inputTitleColor = {color : "red"};
+            }
+    
+            if (this.props.director.length >= 1 && this.props.director.length <= 40){
+                inputDirectorColor = {color : "#737373"};
+            } else {
+                inputDirectorColor = {color : "red"};
+            }
+    
+            if (this.props.description.length >= 1 && this.props.description.length <= 300){
+                inputDescColor = {color : "#737373"};
+            } else {
+                inputDescColor = {color : "red"};
+            }
+        } else {
+
+            if (this.state.titleCounter >= 1 && this.state.titleCounter <= 40){
+                inputTitleColor = {color : "#737373"};
+            } else {
+                inputTitleColor = {color : "red"};
+            }
+    
+            if (this.state.directorCounter >= 1 && this.state.directorCounter <= 40){
+                inputDirectorColor = {color : "#737373"};
+            } else {
+                inputDirectorColor = {color : "red"};
+            }
+    
+            if (this.state.descCounter >= 1 && this.state.descCounter <= 300){
+                inputDescColor = {color : "#737373"};
+            } else {
+                inputDescColor = {color : "red"};
+            }
+        }
+
+            
+
+
         return (<div className = "form-box">
                      <form onSubmit={this.onSubmit}>
                         <label>Title:</label>
-                        <input className="input-box" type="text" value={this.props.title} title={this.props.value} onChange={this.onChangeTitle}/>
+                        <input className="input-box" style={inputTitleColor} type="text" value={this.props.title} title={this.props.value} onChange={this.onChangeTitle}/>
                         <label>Director:</label>
-                        <input className="input-box" type="text" value={this.props.director} director={this.props.value} onChange={this.onChangeDir}/>
+                        <input className="input-box" style={inputDirectorColor} type="text" value={this.props.director} director={this.props.value} onChange={this.onChangeDir}/>
                         <label>Description:</label>
-                        <textarea className="input-box desc" type="text" value={this.props.description} description={this.props.value} onChange={this.onChangeDesc}/>
+                        <textarea className="input-box desc" style={inputDescColor} type="text" value={this.props.description} description={this.props.value} onChange={this.onChangeDesc}/>
                         <label>Rating</label>
                         <span className="rating-choice">
                             <BeautyStars 
