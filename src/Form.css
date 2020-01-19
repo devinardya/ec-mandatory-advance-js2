@@ -5,7 +5,8 @@
     flex-flow: column wrap;
     align-items: center;
     width: 80%;
-    margin-top: 30px;
+    margin-top: 40px;
+    height: 60%;
 }
 
 form {
@@ -46,8 +47,8 @@ label {
 }
 
 .submit-button {
-    width: 200px;
-    padding: 15px;
+    width: 150px;
+    padding: 10px;
     background-color: rgb(12, 143, 148);
     align-self: flex-end;
     border-radius: 50px;

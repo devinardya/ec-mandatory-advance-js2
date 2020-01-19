@@ -113,7 +113,7 @@ class AddMovie extends React.Component{
                     <header>
                            <Navigation/>    
                           <h1>Add Movies</h1>
-                          <h4>Share your favorite movies with everyone</h4>    
+                          <h3>Share your favorite movies with everyone</h3>    
                       </header>
                       {warning}
                       <Form

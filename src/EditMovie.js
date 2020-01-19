@@ -25,6 +25,7 @@ class EditMovie extends React.Component{
           items: {},
           status: false,
           error: false,
+          statEr: "",
         };
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -82,10 +83,7 @@ class EditMovie extends React.Component{
           director: this.state.director,
           rating: this.state.rating,
         }
-        axios.put(url+idPage, newInput, {
-          cancelToken: source.token
-        })
-        
+        axios.put(url+idPage, newInput)
         .then(function (response) {
           console.log(response);
         })
@@ -134,7 +132,7 @@ class EditMovie extends React.Component{
         } else {
             printData = (<div className = "confirmation">
                             <h2>Changes has been saved!</h2>
-                            <h4>{this.state.title}</h4>
+                            <h4 className ="confirmation-title">{this.state.title}</h4>
                             <h5>Rating: <span><BeautyStars value={this.state.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span></h5>
                             <h5>Director: {this.state.director}</h5>
                             <p>{this.state.description}</p>
@@ -158,7 +156,7 @@ class EditMovie extends React.Component{
                     <header>
                          <Navigation/>    
                           <h1>Edit Movie</h1>
-                          <h4>Share your favorite movies with everyone</h4>  
+                          <h3>Share your favorite movies with everyone</h3>  
                     </header>
                     {warning}
                     {printData}

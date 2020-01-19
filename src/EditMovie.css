@@ -13,10 +13,11 @@
     font-size: 20px;
 }
 
-.confirmation h4 {
+.confirmation-title {
     font-size: 20px;
     margin-bottom: 10px;
     font-family: 'Montserrat', sans-serif;
+    color: rgba(1,120,131,1);
 }
 
 .confirmation h5{
@@ -35,7 +36,7 @@
 .warning p{
     text-align: right;
     color: rgb(204, 0, 0);
-    margin-bottom: 0px;
+    margin-bottom: -10px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     margin-top: -20px;

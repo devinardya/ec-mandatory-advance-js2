@@ -161,7 +161,7 @@ class MovieDirectory extends React.Component{
                       <header>
                          <Navigation/>    
                           <h1>Movies Directory</h1>
-                          <h4>Share your favorite movies with everyone</h4>     
+                          <h3>Share your favorite movies with everyone</h3>     
                       </header>
                       <div className="search-box">
                         <form className="search" onChange = {this.onChange}>
