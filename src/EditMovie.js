@@ -5,9 +5,12 @@ import axios from 'axios';
 import Navigation from './Navigation';
 import BeautyStars from 'beauty-stars';
 import Form from './Form'
+import {Link} from 'react-router-dom';
+import { MdChevronLeft } from "react-icons/md";
+
 
 const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
+const source = CancelToken.source();  
 
 let url = "http://3.120.96.16:3001/movies/";
 
@@ -53,22 +56,6 @@ class EditMovie extends React.Component{
           })
         })
       }
-/* 
-      onChangeTitle(e){
-          this.setState({title: e.target.value});
-      } 
-
-      onChangeDesc(e){
-          this.setState({description: e.target.value});
-      } 
-
-      onChangeDir(e){
-          this.setState({director: e.target.value});
-      } 
-
-      onChangeRating(e){
-          this.setState({rating: e.target.value});
-      }  */
       
       onChangeTitle(value){
         this.setState({title: value});
@@ -113,19 +100,25 @@ class EditMovie extends React.Component{
           this.setState({error: true})
         });
         
+    }
+
+    componentWillUnmount(){
+
+      axios.get(url, {
+        cancelToken: source.token
+      })
+      .catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+          console.log('Request canceled', thrown.message);
+        } else {
+          // handle error
+        }
+      }); 
+      source.cancel('Operation canceled by the user.'); 
 
     }
 
     render(){
-    /* 
-        let oldMovieData = this.state.items;
-        console.log(oldMovieData.title)
-
-        let localDataToEdit = [];
-        
-        if (oldMovieData !== undefined){
-          localDataToEdit.push(oldMovieData);
-        } */
 
         let warning;
         let printData;
@@ -145,6 +138,7 @@ class EditMovie extends React.Component{
                             <h5>Rating: <span><BeautyStars value={this.state.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span></h5>
                             <h5>Director: {this.state.director}</h5>
                             <p>{this.state.description}</p>
+                            <p className="back-button" style={{marginTop: "10px", color: "#737373"}}><Link style={{marginRight: "15px", marginLeft: "0px", color: "rgb(10, 151, 161)"}} to="/"><MdChevronLeft className="nav-icon" size="20px" color="rgb(10, 151, 161)"/> Back to movies directory</Link></p>
                          </div>
                         )
         }
@@ -154,9 +148,7 @@ class EditMovie extends React.Component{
                         <p>Error! Changes can not be saved.</p>
                   </div>)
         } else {
-          warning = (<div className = "warning">
-                        <p></p>
-                  </div>)
+          warning = null;
         }
 
         return <div id="movie-directory">

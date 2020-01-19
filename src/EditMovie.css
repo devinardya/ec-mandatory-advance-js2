@@ -5,9 +5,9 @@
 }
 
 .confirmation h2 {
-    text-align: left;
+    text-align: right;
     color: green;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     margin-top: -20px;
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
@@ -33,15 +33,23 @@
 }
 
 .warning p{
-    text-align: left;
-    color: red;
-    margin-bottom: 20px;
+    text-align: right;
+    color: rgb(204, 0, 0);
+    margin-bottom: 0px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    margin-top: 0px;
+    margin-top: -20px;
     font-size: 20px;
+
 }
 
 .confirmation h5 span {
     margin-left: 20px;
 }
+
+.nav-icon {
+    position: relative;
+    top: 5px;
+}
+
+

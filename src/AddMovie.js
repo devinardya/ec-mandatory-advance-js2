@@ -17,6 +17,7 @@ class AddMovie extends React.Component{
           director: "",
           rating: "",
           redirect: false,
+          error: false,
         };
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -62,18 +63,47 @@ class AddMovie extends React.Component{
       })
       .then( () => {
         this.setState({redirect: status})
+        this.setState({error: false})
       })
       .catch((error) =>{
         console.log(error);
+        this.setState({error: true})
       });
-     
-
    }
 
+   componentWillUnmount(){
+
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();  
+
+    axios.get(url, {
+      cancelToken: source.token
+    })
+    .catch(function (thrown) {
+      if (axios.isCancel(thrown)) {
+        console.log('Request canceled', thrown.message);
+      } else {
+        // handle error
+      }
+    }); 
+    source.cancel('Operation canceled by the user.'); 
+
+  }
+
     render(){
+     
+       let warning;
 
         if (this.state.redirect){
             return <Redirect to="/" />;
+        }
+
+        if (this.state.error){
+          warning = (<div className = "warning">
+                        <p>Error! Movie can not be saved.</p>
+                  </div>)
+        } else {
+          warning = null;
         }
 
         return <div id="movie-directory">
@@ -85,6 +115,7 @@ class AddMovie extends React.Component{
                           <h1>Add Movies</h1>
                           <h4>Share your favorite movies with everyone</h4>    
                       </header>
+                      {warning}
                       <Form
                           onSubmit = {this.onSubmit} 
                           description = {this.state.description} onChangeDesc = {this.onChangeDesc} 
@@ -93,13 +124,7 @@ class AddMovie extends React.Component{
                           title = {this.state.title} onChangeTitle = {this.onChangeTitle}
                          
                       />
-                   {/*  <form onSubmit={this.onSubmit}>
-                        <input className="input-box" type="text" placeholder="Title" title={this.state.value} onChange={this.onChangeTitle}/>
-                        <input className="input-box" type="text" placeholder="Description" description={this.state.value} onChange={this.onChangeDesc}/>
-                        <input className="input-box" type="text" placeholder="Director" director={this.state.value} onChange={this.onChangeDir}/>
-                        <input className="input-box" type="text" placeholder="Rating" rating={this.state.value} onChange={this.onChangeRating}/>
-                        <button>Submit</button>
-                    </form> */}
+                  
                 </div>
     }
 

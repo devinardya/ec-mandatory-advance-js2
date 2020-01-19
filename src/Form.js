@@ -9,7 +9,6 @@ class Form extends React.Component {
         this.state = {
             redirect: false,
             value: 0,
-       
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -55,7 +54,7 @@ class Form extends React.Component {
         }
 
         let inputTitleColor;
-        console.log("props counter", this.props.title.length)
+        //console.log("props counter", this.props.title.length)
 
         let inputDirectorColor;
         let inputDescColor;
@@ -80,17 +79,17 @@ class Form extends React.Component {
             }
         } 
 
-            
-
-
         return (<div className = "form-box">
                      <form onSubmit={this.onSubmit}>
                         <label>Title:</label>
                         <input className="input-box" style={inputTitleColor} type="text" value={this.props.title} title={this.props.value} onChange={this.onChangeTitle}/>
+                        <span className="inputValue" style={inputTitleColor}> {this.props.title.length}/40 characters</span>
                         <label>Director:</label>
                         <input className="input-box" style={inputDirectorColor} type="text" value={this.props.director} director={this.props.value} onChange={this.onChangeDir}/>
+                        <span className="inputValue" style={inputDirectorColor}> {this.props.director.length}/40 characters</span>
                         <label>Description:</label>
                         <textarea className="input-box desc" style={inputDescColor} type="text" value={this.props.description} description={this.props.value} onChange={this.onChangeDesc}/>
+                        <span className="inputValue" style={inputDescColor}> {this.props.description.length}/300 characters</span>
                         <label>Rating</label>
                         <span className="rating-choice">
                             <BeautyStars 

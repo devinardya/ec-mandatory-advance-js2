@@ -105,7 +105,7 @@ class MovieDirectory extends React.Component{
       }
 
       render(){
-          console.log("inside the render");
+          //console.log("inside the render");
           let movies = this.state.items;
           console.log(movies);
 
@@ -130,24 +130,24 @@ class MovieDirectory extends React.Component{
                                     <td><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></td>
                                     <td>
                                         <button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
-                                        <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="20px" color="green" /></Link></button>
+                                        <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon two" size="20px" color="green" /></Link></button>
                                     </td>
                                 </tr>
                                 )
           
             if ( this.state.inputValue !== ""){ // if not empty
-              console.log("there is an filtered input")
+              //console.log("there is an filtered input")
             
                 if ( movie.title.toLowerCase().includes(this.state.inputValue)){
-                      console.log("there is a match")
+                      //console.log("there is a match")
                       wholeData = printingData;
                       } else if (movie.director.toLowerCase().includes(this.state.inputValue)){
                           wholeData = printingData;
                       } else {
-                        return wholeData = null;
+                          return wholeData = null;
                       }
             } else {  // if empty
-              console.log("its empty!!")
+               //console.log("its empty!!")
                 wholeData = printingData;
             }
           
@@ -164,9 +164,9 @@ class MovieDirectory extends React.Component{
                           <h4>Share your favorite movies with everyone</h4>     
                       </header>
                       <div className="search-box">
-                        <form className="search" onChange = {this.onChange} onSubmit = {this.onSubmit}>
-                            <input type="text" placeholder="search movie"/>
-                            <button><MdSearch size="15px" color="grey"/></button>
+                        <form className="search" onChange = {this.onChange}>
+                            <input type="text" placeholder="search movie by title or director's name"/>
+                            <span className ="search-icon"><MdSearch size="25px" color= "#c9c9c9"/></span>
                         </form>
                       </div>
                       <div className="movie-list" ref={this.messageList}>

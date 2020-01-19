@@ -7,7 +7,8 @@
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  background-color: #f5f5f5;
+  background: rgb(1,120,131);
+  background: linear-gradient(180deg, rgba(1,120,131,1) 0%, rgba(49,203,217,1) 28%, rgba(245,245,245,1) 28%, rgba(245,245,245,1) 28%);
 }
 
 #movie-directory{
@@ -19,8 +20,8 @@
 }
 
 #movie-directory h1{
-  color: rgb(10, 151, 161);
-  font-size: 90px;
+  color: rgb(243, 243, 243);
+  font-size: 45px;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   line-height: 80px;
@@ -28,8 +29,8 @@
 }
 
 #movie-directory h4{
-  color: orangered;
-  margin-top: 0px;
+  color: rgb(255, 208, 0);
+  margin-top: -20px;
 }
 
 nav{
@@ -40,13 +41,14 @@ nav{
 
 a{
   text-decoration: none;
+  color: white;
 }
 
 header {
   width: 80%;
-  height: 20%;
+  height: 18%;
   margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .movie-list{
@@ -102,13 +104,13 @@ th:first-child {
 }
 
 th:nth-child(2){
-  padding-left: 110px;
+  padding-left: 70px;
   width: 500px;
  
 }
 
 th:nth-child(3){
-  padding-left: 100px;
+  padding-left: 50px;
   width: 500px;
 }
 
@@ -164,11 +166,7 @@ button {
   background-color: hsla(89, 43%, 51%, 0)
 }
 
-.options-button {
-  color: red;
-}
-
-.options-button:hover, .options-icon:hover{
+.options-button:hover{
   cursor: pointer;
 }
 
@@ -183,6 +181,11 @@ li {
 .nav-icon, .options-icon {
   position: relative;
   top: 3px;
+
+}
+
+.options-icon.two {
+  top: 0px;
 }
 
 .search-box{
@@ -192,7 +195,7 @@ li {
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .search {
@@ -206,5 +209,12 @@ li {
 
 .search input {
   width: 80%;
-  padding: 10px 10px;
+  padding: 13px 13px;
+  border: 1px dashed #737373 ;
+}
+
+.search-icon{
+  position: relative;
+  top: 2px;
+  right: 40px;
 }
