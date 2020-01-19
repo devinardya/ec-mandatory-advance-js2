@@ -47,7 +47,7 @@ class MovieDirectory extends React.Component{
       componentDidUpdate(){
          this.interval = setInterval(() => {
             this.onFetch();
-          }, 2000);
+          }, 5000);
          
           this.scrollToBottom();   
       }
@@ -105,7 +105,7 @@ class MovieDirectory extends React.Component{
       }
 
       render(){
-
+          console.log("inside the render");
           let movies = this.state.items;
           console.log(movies);
 
@@ -113,28 +113,46 @@ class MovieDirectory extends React.Component{
 
           movies.map( movieData => {
                return localDataMovies.push(movieData);
-          }) 
+          }); 
 
           console.log(localDataMovies);
+          let renderTable;
           let wholeData;
-          let filterData;
+          console.log("input value", this.state.inputValue);
 
-          let renderTable = localDataMovies.map(movie => {
-              let editUrl = "/editmovie/" + movie.id;
-              let eachUrl = "/movies/" + movie.id;
+          renderTable = localDataMovies.map(movie => {
+            let editUrl = "/editmovie/" + movie.id;
+            let eachUrl = "/movies/" + movie.id;
 
-              wholeData = (<tr key= {movie.id}>
-                              <td><Link style={{marginRight: "10px"}} to={eachUrl}>{movie.title}</Link></td>
-                              <td>{movie.director}</td>
-                              <td><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></td>
-                              <td>
-                                  <button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
-                                  <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="20px" color="green" /></Link></button>
-                              </td>
-                          </tr>
-                          )
-              return wholeData;
-          })
+            let printingData = (<tr key= {movie.id}>
+                                    <td><Link style={{marginRight: "10px"}} to={eachUrl}>{movie.title}</Link></td>
+                                    <td>{movie.director}</td>
+                                    <td><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></td>
+                                    <td>
+                                        <button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
+                                        <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon" size="20px" color="green" /></Link></button>
+                                    </td>
+                                </tr>
+                                )
+          
+            if ( this.state.inputValue !== ""){ // if not empty
+              console.log("there is an filtered input")
+            
+                if ( movie.title.toLowerCase().includes(this.state.inputValue)){
+                      console.log("there is a match")
+                      wholeData = printingData;
+                      } else if (movie.director.toLowerCase().includes(this.state.inputValue)){
+                          wholeData = printingData;
+                      } else {
+                        return wholeData = null;
+                      }
+            } else {  // if empty
+              console.log("its empty!!")
+                wholeData = printingData;
+            }
+          
+          return wholeData;
+      })
 
           return <div id="movie-directory">
                       <Helmet>

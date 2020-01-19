@@ -9,9 +9,7 @@ class Form extends React.Component {
         this.state = {
             redirect: false,
             value: 0,
-            titleCounter: 0,
-            directorCounter: 0,
-            descCounter: 0,
+       
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -23,20 +21,14 @@ class Form extends React.Component {
 
     onChangeTitle(e){
         this.props.onChangeTitle(e.target.value);
-        this.setState({titleCounter : e.target.value.length})
-        this.setState({titleCounter : this.props.title.length})
     } 
 
     onChangeDesc(e){
         this.props.onChangeDesc(e.target.value);
-        this.setState({descCounter : e.target.value.length})
-        this.setState({descCounter : this.props.description.length})
     } 
 
     onChangeDir(e){
         this.props.onChangeDir(e.target.value);
-        this.setState({directorCounter: e.target.value.length})
-        this.setState({directorCounter: this.props.director.length})
     } 
 
     onChangeRating(e){
@@ -63,7 +55,8 @@ class Form extends React.Component {
         }
 
         let inputTitleColor;
-        console.log("title counter", this.state.titleCounter)
+        console.log("props counter", this.props.title.length)
+
         let inputDirectorColor;
         let inputDescColor;
 
@@ -85,26 +78,7 @@ class Form extends React.Component {
             } else {
                 inputDescColor = {color : "red"};
             }
-        } else {
-
-            if (this.state.titleCounter >= 1 && this.state.titleCounter <= 40){
-                inputTitleColor = {color : "#737373"};
-            } else {
-                inputTitleColor = {color : "red"};
-            }
-    
-            if (this.state.directorCounter >= 1 && this.state.directorCounter <= 40){
-                inputDirectorColor = {color : "#737373"};
-            } else {
-                inputDirectorColor = {color : "red"};
-            }
-    
-            if (this.state.descCounter >= 1 && this.state.descCounter <= 300){
-                inputDescColor = {color : "#737373"};
-            } else {
-                inputDescColor = {color : "red"};
-            }
-        }
+        } 
 
             
 

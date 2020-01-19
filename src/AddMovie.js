@@ -87,10 +87,10 @@ class AddMovie extends React.Component{
                       </header>
                       <Form
                           onSubmit = {this.onSubmit} 
-                          onChangeDesc = {this.onChangeDesc} 
-                          onChangeDir = {this.onChangeDir} 
-                          onChangeRating = {this.onChangeRating} 
-                          onChangeTitle = {this.onChangeTitle}
+                          description = {this.state.description} onChangeDesc = {this.onChangeDesc} 
+                          director = {this.state.director} onChangeDir = {this.onChangeDir} 
+                          rating = {this.state.rating} onChangeRating = {this.onChangeRating} 
+                          title = {this.state.title} onChangeTitle = {this.onChangeTitle}
                          
                       />
                    {/*  <form onSubmit={this.onSubmit}>
