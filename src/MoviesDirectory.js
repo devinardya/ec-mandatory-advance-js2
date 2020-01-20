@@ -11,7 +11,7 @@ import BeautyStars from 'beauty-stars';
 
 let url = "http://3.120.96.16:3001/movies/";
 const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
+const source = CancelToken.source(); 
 
 class MovieDirectory extends React.Component{
       constructor(props) {
@@ -45,17 +45,26 @@ class MovieDirectory extends React.Component{
       }
 
       componentDidUpdate(){
-         this.interval = setInterval(() => {
-            this.onFetch();
-          }, 5000);
-         
+          this.onFetch();
           this.scrollToBottom();   
       }
 
 
       onFetch(){
+
+        axios.get(url, {
+          cancelToken: source.token
+        })
+        .catch(function (thrown) {
+          if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+          } else {
+            // handle error
+          }
+        }); 
+        source.cancel('Operation canceled by the user.'); 
           
-          axios.get(url)
+       /*  axios.get(url)
           .then(res => {
             console.log(res)
             const movies = res.data;
@@ -66,8 +75,8 @@ class MovieDirectory extends React.Component{
             if (movies[movies.length-1].id !== savedListMovie[savedListMovie.length-1].id){
               this.setState({items: movies});
             } 
-          })   
-      } 
+          })   */
+      }  
 
       onDelete(id){
           axios.delete(url+id)
@@ -102,7 +111,7 @@ class MovieDirectory extends React.Component{
         }); 
         source.cancel('Operation canceled by the user.'); 
 
-      }
+      } 
 
       render(){
           //console.log("inside the render");
@@ -135,18 +144,18 @@ class MovieDirectory extends React.Component{
                                 </tr>
                                 )
           
-            if ( this.state.inputValue !== ""){ // if not empty
+            if ( this.state.inputValue !== ""){ // if search input not empty
               //console.log("there is an filtered input")
             
-                if ( movie.title.toLowerCase().includes(this.state.inputValue)){
+                if ( movie.title.toLowerCase().includes(this.state.inputValue)){ // search input for title is found
                       //console.log("there is a match")
                       wholeData = printingData;
-                      } else if (movie.director.toLowerCase().includes(this.state.inputValue)){
+                      } else if (movie.director.toLowerCase().includes(this.state.inputValue)){  // search input for director is found
                           wholeData = printingData;
-                      } else {
-                          return wholeData = null;
+                      } else { // for the items that is not found
+                          wholeData = null;
                       }
-            } else {  // if empty
+            } else {  // if search input is empty - print the whole list
                //console.log("its empty!!")
                 wholeData = printingData;
             }

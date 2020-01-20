@@ -15,7 +15,7 @@ class AddMovie extends React.Component{
           title : "",
           description : "",
           director: "",
-          rating: "",
+          rating: 0,
           redirect: false,
           error: false,
         };
@@ -27,68 +27,66 @@ class AddMovie extends React.Component{
         this.onChangeRating = this.onChangeRating.bind(this);
       }
 
-      componentDidMount() {
-        //this.onGetData();
-      }
 
 
-    onChangeTitle(value){
-        this.setState({title: value});
-    } 
 
-    onChangeDesc(value){
-        this.setState({description: value});
-    } 
+      onChangeTitle(value){
+          this.setState({title: value});
+      } 
 
-    onChangeDir(value){
-        this.setState({director: value});
-    } 
+      onChangeDesc(value){
+          this.setState({description: value});
+      } 
 
-    onChangeRating(value){
-        this.setState({rating: value});
-    } 
-    
-   onSubmit(status){
+      onChangeDir(value){
+          this.setState({director: value});
+      } 
 
-       let newInput = {
-        title: this.state.title,
-        description: this.state.description,
-        director: this.state.director,
-        rating: this.state.rating,
-       }
-       axios.post(url, newInput)
-       
-      .then(function (response) {
-        console.log(response); 
+      onChangeRating(value){
+          this.setState({rating: value});
+      } 
+      
+    onSubmit(status){
+
+        let newInput = {
+          title: this.state.title,
+          description: this.state.description,
+          director: this.state.director,
+          rating: this.state.rating,
+        }
+        axios.post(url, newInput)
+        
+        .then(function (response) {
+          console.log(response); 
+        })
+        .then( () => {
+          this.setState({redirect: status})
+          this.setState({error: false})
+        })
+        .catch((error) =>{
+          console.log(error);
+          this.setState({error: true})
+        });
+    }
+
+    componentWillUnmount(){
+
+      const CancelToken = axios.CancelToken;
+      const source = CancelToken.source(); 
+
+      axios.get(url, {
+        cancelToken: source.token
       })
-      .then( () => {
-        this.setState({redirect: status})
-        this.setState({error: false})
-      })
-      .catch((error) =>{
-        console.log(error);
-        this.setState({error: true})
-      });
-   }
+      .catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+          console.log('Request canceled', thrown.message);
+        } else {
+          // handle error
+        }
+      }); 
+      source.cancel('Operation canceled by the user.'); 
 
-   componentWillUnmount(){
-
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();  
-
-    axios.get(url, {
-      cancelToken: source.token
-    })
-    .catch(function (thrown) {
-      if (axios.isCancel(thrown)) {
-        console.log('Request canceled', thrown.message);
-      } else {
-        // handle error
-      }
-    }); 
-    source.cancel('Operation canceled by the user.'); 
-
-  }
+    } 
 
     render(){
      

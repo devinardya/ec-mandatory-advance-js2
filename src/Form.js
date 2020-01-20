@@ -54,12 +54,12 @@ class Form extends React.Component {
         }
 
         let inputTitleColor;
-        //console.log("props counter", this.props.title.length)
+        //console.log("props counter", this.props.rating)
 
         let inputDirectorColor;
         let inputDescColor;
 
-        if (this.props.title !== undefined){
+        
             if (this.props.title.length >= 1 && this.props.title.length <= 40){
                 inputTitleColor = {color : "#737373"};
             } else {
@@ -77,7 +77,7 @@ class Form extends React.Component {
             } else {
                 inputDescColor = {color : "red"};
             }
-        } 
+    
 
         return (<div className = "form-box">
                      <form onSubmit={this.onSubmit}>

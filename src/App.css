@@ -28,7 +28,7 @@
   padding-top: 20px;
 }
 
-#movie-directory h3{
+header h3{
   color: rgb(255, 208, 0);
   margin-top: -20px;
   font-size: 15px;
@@ -49,7 +49,7 @@ header {
   width: 80%;
   height: 18%;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .movie-list{
@@ -143,7 +143,7 @@ td:first-child  a{
 
 td:first-child {
   border-left: none;
-  width: 500px;
+  width: 36.5%;
   padding-left: 60px;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -153,7 +153,14 @@ td:first-child {
 
 td:nth-child(2) {
   text-align: left;
-  width: 500px;
+  width: 29%;
+  padding-left: 25px;
+  color: #414141;
+}
+
+td:nth-child(3) {
+  text-align: left;
+  width: 20%;
   padding-left: 25px;
   color: #414141;
 }
@@ -197,6 +204,7 @@ li {
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: -20px;
 }
 
 .search {
