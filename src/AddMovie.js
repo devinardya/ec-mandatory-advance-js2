@@ -7,6 +7,7 @@ import Form from './Form';
 
 let url = "http://3.120.96.16:3001/movies/";
 
+
 class AddMovie extends React.Component{
 
     constructor(props) {
@@ -19,15 +20,13 @@ class AddMovie extends React.Component{
           redirect: false,
           error: false,
         };
-
+        
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDesc = this.onChangeDesc.bind(this);
         this.onChangeDir = this.onChangeDir.bind(this);
         this.onChangeRating = this.onChangeRating.bind(this);
       }
-
-
 
 
       onChangeTitle(value){
@@ -55,7 +54,6 @@ class AddMovie extends React.Component{
           rating: this.state.rating,
         }
         axios.post(url, newInput)
-        
         .then(function (response) {
           console.log(response); 
         })
@@ -67,26 +65,9 @@ class AddMovie extends React.Component{
           console.log(error);
           this.setState({error: true})
         });
+       
     }
 
-    componentWillUnmount(){
-
-      const CancelToken = axios.CancelToken;
-      const source = CancelToken.source(); 
-
-      axios.get(url, {
-        cancelToken: source.token
-      })
-      .catch(function (thrown) {
-        if (axios.isCancel(thrown)) {
-          console.log('Request canceled', thrown.message);
-        } else {
-          // handle error
-        }
-      }); 
-      source.cancel('Operation canceled by the user.'); 
-
-    } 
 
     render(){
      

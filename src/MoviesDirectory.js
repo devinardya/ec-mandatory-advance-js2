@@ -10,8 +10,6 @@ import BeautyStars from 'beauty-stars';
 
 
 let url = "http://3.120.96.16:3001/movies/";
-const CancelToken = axios.CancelToken;
-const source = CancelToken.source(); 
 
 class MovieDirectory extends React.Component{
       constructor(props) {
@@ -21,62 +19,39 @@ class MovieDirectory extends React.Component{
           redirect: false,
           inputValue: "",
         };
-        this.interval = null;
+      
+        this.source = undefined;
         this.messageList = React.createRef();
         this.onDelete = this.onDelete.bind(this);
-        this.onFetch = this.onFetch.bind(this);
         this.onGetData = this.onGetData.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
         this.onChange = this.onChange.bind(this);
       }
 
-      componentDidMount() {
+
+    componentDidMount() {
         this.onGetData();
       }
+    
+    onGetData() {
+        let CancelToken = axios.CancelToken;
+        this.source = CancelToken.source();
+        axios.get(url, { cancelToken: this.source.token })
+        .then(response => {
+          // console.log(response.data);
+          let datas = response.data;
+          this.setState({ items: datas });
+        });
+      };
 
-      onGetData(){
-          axios.get(url)
-          .then(res => {
-            console.log(res)
-          const movies = res.data;
-          console.log(movies)
-            this.setState({items: movies})
-          })
-      }
+      componentWillUnmount() {
+          this.source.cancel();
+        }
 
       componentDidUpdate(){
-          this.onFetch();
           this.scrollToBottom();   
       }
 
-
-      onFetch(){
-
-        axios.get(url, {
-          cancelToken: source.token
-        })
-        .catch(function (thrown) {
-          if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-          } else {
-            // handle error
-          }
-        }); 
-        source.cancel('Operation canceled by the user.'); 
-          
-       /*  axios.get(url)
-          .then(res => {
-            console.log(res)
-            const movies = res.data;
-            //console.log("res dataa", movies[movies.length-1].id);
-            let savedListMovie = this.state.items;
-            //console.log('this items', this.state.items[this.state.items.length-1]);
-
-            if (movies[movies.length-1].id !== savedListMovie[savedListMovie.length-1].id){
-              this.setState({items: movies});
-            } 
-          })   */
-      }  
 
       onDelete(id){
           axios.delete(url+id)
@@ -96,8 +71,7 @@ class MovieDirectory extends React.Component{
         this.setState({inputValue : e.target.value})
       }
 
-      componentWillUnmount(){
-        clearInterval(this.interval);
+ /*      componentWillUnmount(){
 
         axios.get(url, {
           cancelToken: source.token
@@ -111,7 +85,7 @@ class MovieDirectory extends React.Component{
         }); 
         source.cancel('Operation canceled by the user.'); 
 
-      } 
+      }  */
 
       render(){
           //console.log("inside the render");

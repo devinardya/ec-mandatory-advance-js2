@@ -66,11 +66,11 @@ class IndividualMovie extends React.Component{
             renderPage = (<div className="content">
                               <div className="buttons">
                                  <span className="buttons-line"></span>
-                                 <button className="options-button" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
-                                 <button className="options-button" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon2 two" size="20px" color="green" /></Link></button>
+                                 <button className="buttons-info" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
+                                 <button className="buttons-info" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon2 two" size="20px" color="green" /></Link></button>
                               </div>
                               <h2>{movie.title}</h2>
-                              <span><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span>
+                              <h5 className="content-dir">Ratings: <span><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span></h5>
                               <h3 className="content-dir">Director: {movie.director}</h3>
                               <p>{movie.description}</p>
                               <p className="back-button"><Link style={{marginRight: "15px", marginLeft: "0px", color: "rgb(10, 151, 161)"}} to="/"><MdChevronLeft className="nav-icon" size="20px" color="rgb(10, 151, 161)"/> Back to movies directory</Link></p>
