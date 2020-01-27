@@ -79,7 +79,8 @@ class AddMovie extends React.Component{
 
         if (this.state.error){
           warning = (<div className = "warning">
-                        <p>Error! Movie can not be saved.</p>
+                        <p>Error! Changes can not be saved.</p>
+                        <p>Please check and make sure all inputs are correct!</p>
                   </div>)
         } else {
           warning = null;

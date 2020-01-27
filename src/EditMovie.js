@@ -8,9 +8,6 @@ import {Link} from 'react-router-dom';
 import { MdChevronLeft } from "react-icons/md";
 
 
-const CancelToken = axios.CancelToken;
-const source = CancelToken.source();  
-
 let url = "http://3.120.96.16:3001/movies/";
 
 class EditMovie extends React.Component{
@@ -26,8 +23,10 @@ class EditMovie extends React.Component{
           error: false,
           error404: false,
           redirect: false,
+          errorNum: 0,
         };
 
+        this.source = undefined;
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDesc = this.onChangeDesc.bind(this);
@@ -45,7 +44,13 @@ class EditMovie extends React.Component{
     }
 
       onGetData(idPage){
-        axios.get(url+ idPage)
+
+        let CancelToken = axios.CancelToken;
+        this.source = CancelToken.source();
+
+        axios.get(url+ idPage, {
+            cancelToken: this.source.token
+          })
         .then(res => {
           console.log(res)
         const movies = res.data;
@@ -99,8 +104,8 @@ class EditMovie extends React.Component{
             //this.setState({redirect: status})
           })
           .catch((error) => {
-            console.log(error);
-            this.setState({error: true})
+            console.log(error.response.status);
+            this.setState({error: true, errorNum: error.response.status})
           });
           
       }
@@ -108,7 +113,7 @@ class EditMovie extends React.Component{
      componentWillUnmount(){
 
       axios.get(url, {
-        cancelToken: source.token
+        cancelToken: this.source.token
       })
       .catch(function (thrown) {
         if (axios.isCancel(thrown)) {
@@ -117,7 +122,7 @@ class EditMovie extends React.Component{
           // handle error
         }
       }); 
-      source.cancel('Operation canceled by the user.'); 
+      this.source.cancel('Operation canceled by the user.'); 
 
     } 
 
@@ -161,15 +166,24 @@ class EditMovie extends React.Component{
       
 
         if (this.state.error){
-          warning = (<div className = "warning">
-                        <p>Error! Changes can not be saved.</p>
-                  </div>)
+            if(this.state.errorNum === 400){
+              warning = (<div className = "warning">
+                              <p>Error! Changes can not be saved.</p>
+                              <p>Please check and make sure all inputs are correct!</p>
+                        </div>)
+            } else if ( this.state.errorNum === 404 ){
+              warning = (<div className = "warning">
+                             <p>Error! Changes can not be saved.</p>
+                             <p>It seems the page has been removed.</p>
+                         </div>)
+            }
+        
           printData = (<Form
-          onSubmit = {this.onSubmit} 
-          description = {this.state.description} onChangeDesc = {this.onChangeDesc} 
-          director = {this.state.director} onChangeDir = {this.onChangeDir} 
-          rating = {this.state.rating} onChangeRating = {this.onChangeRating} 
-          title = {this.state.title} onChangeTitle = {this.onChangeTitle}
+                          onSubmit = {this.onSubmit} 
+                          description = {this.state.description} onChangeDesc = {this.onChangeDesc} 
+                          director = {this.state.director} onChangeDir = {this.onChangeDir} 
+                          rating = {this.state.rating} onChangeRating = {this.onChangeRating} 
+                          title = {this.state.title} onChangeTitle = {this.onChangeTitle}
         />
       )
         } else {
@@ -183,7 +197,6 @@ class EditMovie extends React.Component{
                     <header>
                          <Navigation/>    
                           <h1>Edit Movie</h1>
-                          <h3>Share your favorite movies with everyone</h3>  
                     </header>
                     {warning}
                     {printData}

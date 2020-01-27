@@ -28,25 +28,24 @@ class MovieDirectory extends React.Component{
         this.onChange = this.onChange.bind(this);
       }
 
-
-    componentDidMount() {
+      componentDidMount() {
         this.onGetData();
       }
-    
-    onGetData() {
-        let CancelToken = axios.CancelToken;
-        this.source = CancelToken.source();
-        axios.get(url, { cancelToken: this.source.token })
-        .then(response => {
-          // console.log(response.data);
-          let datas = response.data;
-          this.setState({ items: datas });
-        });
-      };
 
-      componentWillUnmount() {
-          this.source.cancel();
-        }
+      onGetData(){
+         let CancelToken = axios.CancelToken;
+         this.source = CancelToken.source();
+
+          axios.get(url, {
+            cancelToken: this.source.token
+          })
+          .then(res => {
+            console.log(res)
+          const movies = res.data;
+          console.log(movies)
+            this.setState({items: movies})
+          })
+      }
 
       componentDidUpdate(){
           this.scrollToBottom();   
@@ -71,10 +70,10 @@ class MovieDirectory extends React.Component{
         this.setState({inputValue : e.target.value})
       }
 
- /*      componentWillUnmount(){
+      componentWillUnmount(){
 
         axios.get(url, {
-          cancelToken: source.token
+          cancelToken: this.source.token
         })
         .catch(function (thrown) {
           if (axios.isCancel(thrown)) {
@@ -83,9 +82,9 @@ class MovieDirectory extends React.Component{
             // handle error
           }
         }); 
-        source.cancel('Operation canceled by the user.'); 
+        this.source.cancel('Operation canceled by the user.'); 
 
-      }  */
+      } 
 
       render(){
           //console.log("inside the render");
@@ -127,7 +126,7 @@ class MovieDirectory extends React.Component{
                       } else if (movie.director.toLowerCase().includes(this.state.inputValue)){  // search input for director is found
                           wholeData = printingData;
                       } else { // for the items that is not found
-                          wholeData = null;
+                          return null;
                       }
             } else {  // if search input is empty - print the whole list
                //console.log("its empty!!")

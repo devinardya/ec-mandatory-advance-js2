@@ -6,8 +6,6 @@ import BeautyStars from 'beauty-stars';
 import './IndivMovie.css';
 import {Link} from 'react-router-dom';
 import { MdChevronLeft } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
-import { MdClear } from "react-icons/md";
 import {Redirect} from 'react-router-dom';
 
 let url = "http://3.120.96.16:3001/movies/";
@@ -64,17 +62,15 @@ class IndividualMovie extends React.Component{
 
         if (!this.state.error){
             renderPage = (<div className="content">
-                              <div className="buttons">
-                                 <span className="buttons-line"></span>
-                                 <button className="buttons-info" onClick = {() => this.onDelete(movie.id)}><MdClear className="options-icon" size="25px" color="red" /></button>
-                                 <button className="buttons-info" ><Link style={{marginRight: "10px"}} to={editUrl}><MdEdit className="options-icon2 two" size="20px" color="green" /></Link></button>
-                              </div>
                               <h2>{movie.title}</h2>
                               <h5 className="content-dir">Ratings: <span><BeautyStars value={movie.rating} size="15px" inactiveColor="#d1d1d1" activeColor="orange"/></span></h5>
                               <h3 className="content-dir">Director: {movie.director}</h3>
                               <p>{movie.description}</p>
+                              <div className="buttons">
+                                 <button className="buttons-info delete" onClick = {() => this.onDelete(movie.id)}>Delete</button>
+                                 <button className="buttons-info edit" ><Link style={{marginRight: "10px"}} to={editUrl}>Edit</Link></button>
+                              </div>
                               <p className="back-button"><Link style={{marginRight: "15px", marginLeft: "0px", color: "rgb(10, 151, 161)"}} to="/"><MdChevronLeft className="nav-icon" size="20px" color="rgb(10, 151, 161)"/> Back to movies directory</Link></p>
-                             
                           </div>
                          )
         }else {
