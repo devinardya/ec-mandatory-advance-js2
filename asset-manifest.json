@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/movie-app/static/css/main.f3fccd58.chunk.css",
-    "main.js": "/movie-app/static/js/main.ce6e57de.chunk.js",
-    "main.js.map": "/movie-app/static/js/main.ce6e57de.chunk.js.map",
-    "runtime-main.js": "/movie-app/static/js/runtime-main.8e14a1ed.js",
-    "runtime-main.js.map": "/movie-app/static/js/runtime-main.8e14a1ed.js.map",
-    "static/js/2.0a6ccdda.chunk.js": "/movie-app/static/js/2.0a6ccdda.chunk.js",
-    "static/js/2.0a6ccdda.chunk.js.map": "/movie-app/static/js/2.0a6ccdda.chunk.js.map",
-    "index.html": "/movie-app/index.html",
-    "precache-manifest.1a47ae17567cb913671704cae470957c.js": "/movie-app/precache-manifest.1a47ae17567cb913671704cae470957c.js",
-    "service-worker.js": "/movie-app/service-worker.js",
-    "static/css/main.f3fccd58.chunk.css.map": "/movie-app/static/css/main.f3fccd58.chunk.css.map",
-    "static/js/2.0a6ccdda.chunk.js.LICENSE": "/movie-app/static/js/2.0a6ccdda.chunk.js.LICENSE"
+    "main.css": "/ec-mandatory-advance-js2/static/css/main.f3fccd58.chunk.css",
+    "main.js": "/ec-mandatory-advance-js2/static/js/main.3ee2d067.chunk.js",
+    "main.js.map": "/ec-mandatory-advance-js2/static/js/main.3ee2d067.chunk.js.map",
+    "runtime-main.js": "/ec-mandatory-advance-js2/static/js/runtime-main.ad4ec405.js",
+    "runtime-main.js.map": "/ec-mandatory-advance-js2/static/js/runtime-main.ad4ec405.js.map",
+    "static/js/2.0a6ccdda.chunk.js": "/ec-mandatory-advance-js2/static/js/2.0a6ccdda.chunk.js",
+    "static/js/2.0a6ccdda.chunk.js.map": "/ec-mandatory-advance-js2/static/js/2.0a6ccdda.chunk.js.map",
+    "index.html": "/ec-mandatory-advance-js2/index.html",
+    "precache-manifest.c6c9c0115fcea127b6d8cded76bd1d9d.js": "/ec-mandatory-advance-js2/precache-manifest.c6c9c0115fcea127b6d8cded76bd1d9d.js",
+    "service-worker.js": "/ec-mandatory-advance-js2/service-worker.js",
+    "static/css/main.f3fccd58.chunk.css.map": "/ec-mandatory-advance-js2/static/css/main.f3fccd58.chunk.css.map",
+    "static/js/2.0a6ccdda.chunk.js.LICENSE": "/ec-mandatory-advance-js2/static/js/2.0a6ccdda.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e14a1ed.js",
+    "static/js/runtime-main.ad4ec405.js",
     "static/js/2.0a6ccdda.chunk.js",
     "static/css/main.f3fccd58.chunk.css",
-    "static/js/main.ce6e57de.chunk.js"
+    "static/js/main.3ee2d067.chunk.js"
   ]
 }
