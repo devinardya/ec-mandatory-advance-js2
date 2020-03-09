@@ -10,12 +10,12 @@ class App extends React.Component {
   render(){
     return (
       <div id="App">
-          <HashRouter basename="/">
+          <Router basename={process.env.PUBLIC_URL}>
               <Route exact path="/" component={Home} />
               <Route path="/addmovie" component={AddMovie} />
               <Route path="/editmovie/:id" component={EditMovie} />
               <Route path="/movies/:id" component={IndividualMovie} />
-           </HashRouter>
+           </Router>
         
       </div>
     );
